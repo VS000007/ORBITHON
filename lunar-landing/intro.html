@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmic Crew — Starting Portal</title>
+  <meta name="description" content="Cosmic Crew — Official Starting Window for Lunar Surface Topography AI">
+  
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="cosmic-intro.css">
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      background: #18485f;
+      overflow: hidden;
+      font-family: 'Space Grotesk', sans-serif;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Fullscreen Animated Cosmic Crew Window -->
+  <div id="cosmic-intro-screen" class="cosmic-intro-overlay">
+    <!-- Atmospheric Cosmic Layers -->
+    <img src="assets/cosmic-crew/Clouds.svg" alt="Clouds" class="cc-clouds">
+    <img src="assets/cosmic-crew/Stars.svg" alt="Stars" class="cc-stars">
+    <img src="assets/cosmic-crew/OrangePlanet.svg" alt="Orange Planet" class="cc-orange-planet">
+    <img src="assets/cosmic-crew/GreenPlanet.svg" alt="Green Planet" class="cc-green-planet">
+
+    <!-- Top Navigation Bar -->
+    <header class="cc-navbar">
+      <div class="cc-brand-logo">
+        <img src="assets/cosmic-crew/CosmicCrewSkull.svg" alt="Cosmic Crew Skull Logo" class="cc-skull-icon" id="cc-main-skull">
+      </div>
+
+      <nav class="cc-nav-menu">
+        <!-- 3-Second Interactive Timer / Skip Button -->
+        <button class="cc-timer-badge" id="skip-intro-btn" title="Click to skip into mission">
+          <div class="cc-timer-ring-container">
+            <svg class="cc-timer-ring-svg" viewBox="0 0 20 20">
+              <circle cx="10" cy="10" r="7" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2.5"></circle>
+              <circle class="cc-timer-ring-circle" cx="10" cy="10" r="7" fill="none" stroke="#efab88" stroke-width="2.5"></circle>
+            </svg>
+          </div>
+          <span>ENTERING MISSION <span id="countdown-sec">3</span>s</span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Main Visual Stage: Layered Artwork with Precise Z-Indexing -->
+    <div class="cc-hero-stage">
+      <!-- Big "COSMIC" Title -->
+      <img src="assets/cosmic-crew/CosmicTitle.svg" alt="COSMIC" class="cc-cosmic-title">
+
+      <!-- Characters Layering -->
+      <img src="assets/cosmic-crew/CrewSamurai.svg" alt="Crew Samurai" class="cc-char-samurai">
+      <img src="assets/cosmic-crew/CrewTurban.svg" alt="Crew Turban" class="cc-char-turban">
+      <img src="assets/cosmic-crew/CrewTitle.svg" alt="CREW" class="cc-crew-title">
+      <img src="assets/cosmic-crew/Monkey.svg" alt="Cosmic Monkey" class="cc-char-monkey">
+      <img src="assets/cosmic-crew/CrewGirl.svg" alt="Crew Girl" class="cc-char-girl">
+    </div>
+
+    <!-- Floating Mission Status Badge -->
+    <div class="cc-bottom-bar">
+      <span class="cc-bottom-title">TEAM COSMIC CREW</span>
+      <span class="cc-bottom-sep"></span>
+      <span class="cc-bottom-desc">Chandrayaan-3 Lunar Surface AI Topography</span>
+      <button class="cc-enter-now-btn" id="enter-now-btn">
+        Enter Landing Page &rarr;
+      </button>
+    </div>
+
+    <!-- 3-Second Linear Progress Bar -->
+    <div class="cc-linear-progress">
+      <div class="cc-linear-progress-fill"></div>
+    </div>
+  </div>
+
+  <script>
+    let remaining = 3;
+    const countEl = document.getElementById('countdown-sec');
+    const introScreen = document.getElementById('cosmic-intro-screen');
+
+    const countdownInterval = setInterval(() => {
+      remaining--;
+      if (countEl && remaining >= 0) {
+        countEl.textContent = remaining;
+      }
+      if (remaining <= 0) {
+        clearInterval(countdownInterval);
+        navigateNext();
+      }
+    }, 1000);
+
+    function navigateNext() {
+      clearInterval(countdownInterval);
+      introScreen.classList.add('dismissed');
+      setTimeout(() => {
+        window.location.href = 'index.html?intro=done';
+      }, 650);
+    }
+
+    document.getElementById('skip-intro-btn').addEventListener('click', navigateNext);
+    document.getElementById('enter-now-btn').addEventListener('click', navigateNext);
+    introScreen.addEventListener('click', (e) => {
+      if (e.target.tagName !== 'A') {
+        navigateNext();
+      }
+    });
+  </script>
+</body>
+</html>

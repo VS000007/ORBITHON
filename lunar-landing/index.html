@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cosmic Crew — Explore the Lunar Crater</title>
+  <meta name="description" content="Cosmic Crew — We build AI systems that process lunar surface topography to ensure safe landing efficiency for Chandrayaan missions.">
+  
+  <!-- Modern Typography (Inter & Space Grotesk) -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Space+Grotesk:ital,wght@0,500;0,700;1,500;1,700&display=swap" rel="stylesheet">
+  
+  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="cosmic-intro.css">
+</head>
+<body>
+
+  <!-- ========================================================================= -->
+  <!-- 1. COSMIC CREW — STARTING WINDOW (3-Second Doppelganger Entrance Screen) -->
+  <!-- ========================================================================= -->
+  <div id="cosmic-intro-screen" class="cosmic-intro-overlay">
+    <!-- Atmospheric Visual Layers -->
+    <img src="assets/cosmic-crew/Clouds.svg" alt="Clouds" class="cc-clouds">
+    <img src="assets/cosmic-crew/Stars.svg" alt="Stars" class="cc-stars">
+    <img src="assets/cosmic-crew/OrangePlanet.svg" alt="Orange Planet" class="cc-orange-planet">
+    <img src="assets/cosmic-crew/GreenPlanet.svg" alt="Green Planet" class="cc-green-planet">
+
+    <!-- Top Navigation Bar -->
+    <header class="cc-navbar">
+      <div class="cc-brand-logo">
+        <img src="assets/cosmic-crew/CosmicCrewSkull.svg" alt="Cosmic Crew Logo" class="cc-skull-icon" id="cc-main-skull">
+      </div>
+
+      <nav class="cc-nav-menu">
+        <!-- 3-Second Interactive Timer / Skip Button -->
+        <button class="cc-timer-badge" id="skip-intro-btn" title="Click to skip directly into landing page">
+          <div class="cc-timer-ring-container">
+            <svg class="cc-timer-ring-svg" viewBox="0 0 20 20">
+              <circle cx="10" cy="10" r="7" fill="none" stroke="rgba(255,255,255,0.2)" stroke-width="2.5"></circle>
+              <circle class="cc-timer-ring-circle" cx="10" cy="10" r="7" fill="none" stroke="#efab88" stroke-width="2.5"></circle>
+            </svg>
+          </div>
+          <span>LAUNCHING IN <span id="countdown-sec">3</span>s</span>
+        </button>
+      </nav>
+    </header>
+
+    <!-- Main Visual Stage: Layered Artwork with Authentic Doppelganger Composition -->
+    <div class="cc-hero-stage">
+      <!-- Big "COSMIC" Title -->
+      <img src="assets/cosmic-crew/CosmicTitle.svg" alt="COSMIC" class="cc-cosmic-title">
+
+      <!-- Characters Layering -->
+      <img src="assets/cosmic-crew/CrewSamurai.svg" alt="Crew Samurai" class="cc-char-samurai">
+      <img src="assets/cosmic-crew/CrewTurban.svg" alt="Crew Turban" class="cc-char-turban">
+      <img src="assets/cosmic-crew/CrewTitle.svg" alt="CREW" class="cc-crew-title">
+      <img src="assets/cosmic-crew/Monkey.svg" alt="Cosmic Monkey" class="cc-char-monkey">
+      <img src="assets/cosmic-crew/CrewGirl.svg" alt="Crew Girl" class="cc-char-girl">
+    </div>
+
+    <!-- Floating Mission Status Badge -->
+    <div class="cc-bottom-bar">
+      <span class="cc-bottom-title">TEAM COSMIC CREW</span>
+      <span class="cc-bottom-sep"></span>
+      <span class="cc-bottom-desc">Chandrayaan-3 Lunar Surface AI Topography</span>
+      <button class="cc-enter-now-btn" id="enter-now-btn">
+        Enter Mission &rarr;
+      </button>
+    </div>
+
+    <!-- 3-Second Linear Progress Bar -->
+    <div class="cc-linear-progress">
+      <div class="cc-linear-progress-fill"></div>
+    </div>
+  </div>
+
+  <!-- Deep Space Starfield Canvas (for Landing Page) -->
+  <canvas id="starfield-canvas"></canvas>
+
+  <!-- ========================================================================= -->
+  <!-- 2. OUR LANDING PAGE (Revealed after 3-Second Cosmic Crew Entrance)       -->
+  <!-- ========================================================================= -->
+  <div class="page-container">
+    <!-- Top Header / Navigation -->
+    <header class="site-header">
+      <!-- Team Cosmic Crew Brand with Authentic Skull Logo -->
+      <div class="brand-cosmic-crew" id="replay-brand-btn" title="Click to replay Cosmic Crew intro">
+        <img src="assets/cosmic-crew/CosmicCrewSkull.svg" alt="Cosmic Crew" class="brand-skull-mini">
+        <div class="brand-text-group">
+          <div class="brand-name">
+            COSMIC CREW
+            <span class="brand-badge">MISSION</span>
+          </div>
+          <span class="brand-subtext">Lunar Crater Topography AI</span>
+        </div>
+      </div>
+      
+      <!-- Right Navigation Links & Status -->
+      <nav class="header-nav">
+        <!-- Replay Intro Button -->
+        <button class="btn-replay-intro" id="header-replay-btn" title="Replay 3-second Cosmic Crew starting animation">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M23 4v6h-6"></path>
+            <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+          </svg>
+          <span>Cosmic Intro</span>
+        </button>
+
+        <a href="#mission" class="nav-link" id="nav-mission">Mission</a>
+        <a href="#telemetry" class="nav-link" id="nav-telemetry">Telemetry</a>
+        
+        <!-- Link to Main Backend Working Site -->
+        <a href="http://localhost:8501/" target="_blank" class="nav-cta-link" id="nav-detector">
+          <span class="pulse-indicator"></span>
+          Live Scanner (8501)
+        </a>
+      </nav>
+    </header>
+
+    <!-- Main Hero Section -->
+    <main class="hero-section">
+      <!-- Left Column: Copy & Call-to-Action -->
+      <div class="hero-content">
+        <div class="mission-tag">
+          <span class="tag-glow"></span>
+          <span>CHANDRAYAAN-3 TOPOGRAPHY AI • COSMIC CREW</span>
+        </div>
+        
+        <h1 class="hero-heading">
+          Explore the lunar<br>crater
+        </h1>
+        
+        <p class="hero-description">
+          We build systems that process data of lunar (moon) surface and help to get better efficiency for lander for a safe landing
+        </p>
+        
+        <div class="hero-actions">
+          <!-- Connects directly to our main backend working site -->
+          <a href="http://localhost:8501/" target="_blank" class="btn-get-started" id="get-started-btn">
+            Get Started
+            <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+          
+          <button class="btn-explore-toggle" id="explore-btn" title="Toggle Surface Craters">
+            <svg class="btn-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="3"></circle>
+              <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+            </svg>
+            Interactive Controls
+          </button>
+        </div>
+
+        <!-- Telemetry Highlights Pill Row -->
+        <div class="telemetry-bar">
+          <div class="telemetry-item">
+            <span class="telemetry-label">TARGET SITE</span>
+            <span class="telemetry-val">69.37° S, 32.35° E</span>
+          </div>
+          <div class="telemetry-divider"></div>
+          <div class="telemetry-item">
+            <span class="telemetry-label">DESCENT RESOLUTION</span>
+            <span class="telemetry-val">0.25 m / px</span>
+          </div>
+          <div class="telemetry-divider"></div>
+          <div class="telemetry-item">
+            <span class="telemetry-label">TOUCHDOWN ACCURACY</span>
+            <span class="telemetry-val">&gt; 99.4%</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Right Column: 3D Photorealistic Rotating Moon Canvas -->
+      <div class="moon-container" id="moon-container">
+        <!-- Three.js Canvas injected here -->
+        <div class="moon-canvas-wrapper" id="moon-canvas-wrapper"></div>
+        
+        <!-- Interactive Moon Overlay Controls & HUD Tooltip -->
+        <div class="moon-hud-overlay">
+          <div class="hud-pill" id="rotation-toggle-btn" title="Click to Pause/Resume Rotation">
+            <span class="hud-status-dot active"></span>
+            <span id="rotation-status-text">3D Rotation: Active</span>
+          </div>
+          <div class="hud-hint">
+            <span>Drag to rotate • Scroll to zoom</span>
+          </div>
+        </div>
+      </div>
+    </main>
+  </div>
+
+  <!-- Three.js CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+  <!-- OrbitControls CDN for seamless mouse interaction -->
+  <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+  
+  <!-- Base64 Fallback Texture for Zero-CORS offline execution -->
+  <script src="assets/moon_b64.js?v=3"></script>
+  
+  <!-- Main 3D Animation & Application Logic -->
+  <script src="app.js?v=4"></script>
+
+  <!-- Cosmic Crew Starting Window Controller -->
+  <script>
+    (function initCosmicCrewIntroController() {
+      const introEl = document.getElementById('cosmic-intro-screen');
+      const timerText = document.getElementById('countdown-sec');
+      const skipBtn = document.getElementById('skip-intro-btn');
+      const enterBtn = document.getElementById('enter-now-btn');
+      const replayBtn = document.getElementById('header-replay-btn');
+      const brandBtn = document.getElementById('replay-brand-btn');
+      
+      let countdownTimer = null;
+      let autoDismissTimer = null;
+      
+      function startIntro() {
+        introEl.style.display = 'block';
+        introEl.classList.remove('dismissed');
+        let timeLeft = 3;
+        if (timerText) timerText.textContent = timeLeft;
+
+        // Reset progress animation
+        const progressFill = introEl.querySelector('.cc-linear-progress-fill');
+        if (progressFill) {
+          progressFill.style.animation = 'none';
+          void progressFill.offsetWidth;
+          progressFill.style.animation = 'ccFillBar 3s linear forwards';
+        }
+
+        const ringProgress = introEl.querySelector('.cc-timer-ring-circle');
+        if (ringProgress) {
+          ringProgress.style.animation = 'none';
+          void ringProgress.offsetWidth;
+          ringProgress.style.animation = 'ccTimerProgress 3s linear forwards';
+        }
+
+        clearInterval(countdownTimer);
+        clearTimeout(autoDismissTimer);
+
+        countdownTimer = setInterval(() => {
+          timeLeft--;
+          if (timerText && timeLeft >= 0) timerText.textContent = timeLeft;
+        }, 1000);
+
+        // Disappear exactly after 3 seconds as requested
+        autoDismissTimer = setTimeout(() => {
+          dismissIntro();
+        }, 3000);
+      }
+
+      function dismissIntro() {
+        clearInterval(countdownTimer);
+        clearTimeout(autoDismissTimer);
+        introEl.classList.add('dismissed');
+        setTimeout(() => {
+          introEl.style.display = 'none';
+        }, 650);
+      }
+
+      if (skipBtn) skipBtn.addEventListener('click', (e) => { e.stopPropagation(); dismissIntro(); });
+      if (enterBtn) enterBtn.addEventListener('click', (e) => { e.stopPropagation(); dismissIntro(); });
+      if (replayBtn) replayBtn.addEventListener('click', (e) => { e.preventDefault(); startIntro(); });
+      if (brandBtn) brandBtn.addEventListener('click', (e) => { e.preventDefault(); startIntro(); });
+
+      // Click anywhere on the intro screen to skip
+      introEl.addEventListener('click', (e) => {
+        if (e.target.tagName !== 'A') {
+          dismissIntro();
+        }
+      });
+
+      const urlParams = new URLSearchParams(window.location.search);
+      if (urlParams.get('intro') === 'done' || urlParams.get('skip') === '1') {
+        introEl.style.display = 'none';
+        introEl.classList.add('dismissed');
+      } else {
+        startIntro();
+      }
+    })();
+  </script>
+</body>
+</html>
