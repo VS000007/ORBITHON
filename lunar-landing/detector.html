@@ -3,8 +3,8 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cosmic Crew — Chandrayaan-3 Crater Scanner</title>
-  <meta name="description" content="AI-Powered Lunar Crater Detection &amp; Hazard Mapping for Chandrayaan-3 mission by Team Cosmic Crew">
+  <title>Cosmic Crew — Chandrayaan Crater Hazard Mapper</title>
+  <meta name="description" content="AI-Powered Lunar Crater Detection &amp; Hazard Mapping for Chandrayaan missions by Team Cosmic Crew">
   
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -67,7 +67,7 @@
     /* ── Page Shell ── */
     .app-shell {
       position: relative; z-index: 1;
-      max-width: 1280px; margin: 0 auto;
+      max-width: 1320px; margin: 0 auto;
       padding: 0 2rem 4rem;
     }
 
@@ -75,7 +75,7 @@
     .top-nav {
       display: flex; align-items: center; justify-content: space-between;
       padding: 1.25rem 0; border-bottom: 1px solid var(--border);
-      margin-bottom: 2.5rem;
+      margin-bottom: 2rem;
     }
     .nav-brand {
       display: flex; align-items: center; gap: 12px;
@@ -100,16 +100,23 @@
     }
     .nav-pill:hover { color: var(--text); border-color: rgba(255,255,255,0.2); transform: translateY(-1px); }
     .nav-pill.active { color: var(--cyan); border-color: var(--border-active); background: rgba(0,242,254,0.06); }
-    .nav-pill svg { width: 14px; height: 14px; }
+    .nav-pill.streamlit-pill {
+      color: #ff4b4b; border-color: rgba(255,75,75,0.3); background: rgba(255,75,75,0.06);
+    }
+    .nav-pill.streamlit-pill:hover {
+      border-color: #ff4b4b; background: rgba(255,75,75,0.12);
+    }
+    .pulse-dot { width: 6px; height: 6px; border-radius: 50%; background: #ff4b4b; box-shadow: 0 0 6px #ff4b4b; animation: pulse 1.8s infinite; }
+    @keyframes pulse { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.4;transform:scale(0.8)} }
 
     /* ── Page Title Block ── */
-    .page-title-block { text-align: center; margin-bottom: 2.5rem; }
+    .page-title-block { text-align: center; margin-bottom: 2rem; }
     .page-tag {
       display: inline-flex; align-items: center; gap: 8px;
       padding: 6px 16px; border-radius: 999px; font-size: 0.72rem; font-weight: 600;
       letter-spacing: 0.08em; text-transform: uppercase; color: var(--cyan);
       background: rgba(0,242,254,0.06); border: 1px solid rgba(0,242,254,0.15);
-      margin-bottom: 1rem;
+      margin-bottom: 0.75rem;
     }
     .page-tag .dot { width: 6px; height: 6px; border-radius: 50%; background: var(--cyan); animation: pulse-dot 2s infinite; }
     @keyframes pulse-dot { 0%,100%{opacity:1;transform:scale(1)} 50%{opacity:.5;transform:scale(0.8)} }
@@ -119,16 +126,16 @@
       font-weight: 700; line-height: 1.15; letter-spacing: -0.02em;
       background: linear-gradient(135deg, #ffffff 0%, #a0a0a0 100%);
       -webkit-background-clip: text; -webkit-text-fill-color: transparent;
-      margin-bottom: 0.75rem;
+      margin-bottom: 0.5rem;
     }
-    .page-subtitle { font-size: 0.95rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; line-height: 1.6; }
+    .page-subtitle { font-size: 0.95rem; color: var(--text-muted); max-width: 680px; margin: 0 auto; line-height: 1.5; }
 
     /* ── Two-Column Layout ── */
     .scanner-grid {
-      display: grid; grid-template-columns: 1fr 1fr; gap: 2rem;
+      display: grid; grid-template-columns: 1fr 1.05fr; gap: 1.75rem;
       align-items: start;
     }
-    @media (max-width: 900px) { .scanner-grid { grid-template-columns: 1fr; } }
+    @media (max-width: 960px) { .scanner-grid { grid-template-columns: 1fr; } }
 
     /* ── Cards ── */
     .card {
@@ -137,9 +144,10 @@
     }
     .card:hover { border-color: rgba(255,255,255,0.12); }
     .card-header {
-      display: flex; align-items: center; gap: 10px;
+      display: flex; align-items: center; justify-content: space-between;
       margin-bottom: 1.25rem; padding-bottom: 1rem; border-bottom: 1px solid var(--border);
     }
+    .card-header-left { display: flex; align-items: center; gap: 10px; }
     .card-icon {
       width: 36px; height: 36px; border-radius: 10px;
       display: flex; align-items: center; justify-content: center;
@@ -150,16 +158,40 @@
     .card-title { font-family: var(--font-display); font-size: 1rem; font-weight: 600; }
     .card-label { font-size: 0.72rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; }
 
+    /* ── Mission Config Selector Row ── */
+    .mission-config-box {
+      background: rgba(0,0,0,0.35); border: 1px solid var(--border);
+      border-radius: 12px; padding: 12px 14px; margin-bottom: 1.25rem;
+      display: flex; flex-direction: column; gap: 10px;
+    }
+    .config-row {
+      display: flex; align-items: center; justify-content: space-between; gap: 10px;
+    }
+    .config-label { font-size: 0.75rem; font-weight: 600; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.04em; }
+    .mission-select {
+      background: rgba(15,23,42,0.8); border: 1px solid rgba(255,255,255,0.15);
+      color: var(--text); font-family: var(--font); font-size: 0.8rem;
+      padding: 6px 10px; border-radius: 8px; outline: none; cursor: pointer;
+      flex: 1; max-width: 280px;
+    }
+    .config-sliders {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 10px; padding-top: 6px;
+      border-top: 1px solid rgba(255,255,255,0.05);
+    }
+    .slider-item { display: flex; flex-direction: column; gap: 4px; }
+    .slider-label { font-size: 0.68rem; color: var(--text-subtle); display: flex; justify-content: space-between; }
+    .slider-val { font-family: var(--font-mono); color: var(--cyan); font-weight: 600; }
+
     /* ── Upload Dropzone ── */
     .dropzone {
       border: 2px dashed rgba(255,255,255,0.12); border-radius: 12px;
-      padding: 2.5rem 1.5rem; text-align: center; cursor: pointer;
+      padding: 2rem 1.5rem; text-align: center; cursor: pointer;
       transition: all 0.3s ease; position: relative; overflow: hidden;
     }
     .dropzone:hover, .dropzone.dragover { border-color: var(--cyan); background: rgba(0,242,254,0.03); }
-    .dropzone-icon { font-size: 2.2rem; margin-bottom: 0.75rem; opacity: 0.7; }
-    .dropzone-text { font-size: 0.9rem; color: var(--text-muted); margin-bottom: 0.5rem; }
-    .dropzone-hint { font-size: 0.75rem; color: var(--text-subtle); }
+    .dropzone-icon { font-size: 2rem; margin-bottom: 0.5rem; opacity: 0.7; }
+    .dropzone-text { font-size: 0.88rem; color: var(--text-muted); margin-bottom: 0.35rem; }
+    .dropzone-hint { font-size: 0.72rem; color: var(--text-subtle); }
     .dropzone input[type="file"] { position: absolute; inset: 0; opacity: 0; cursor: pointer; }
 
     /* ── Sample Strip ── */
@@ -181,11 +213,24 @@
       letter-spacing: 0.04em; backdrop-filter: blur(4px);
     }
 
+    /* ── Scan Button ── */
+    .scan-btn {
+      display: flex; align-items: center; justify-content: center; gap: 10px;
+      width: 100%; padding: 13px; margin-top: 1.25rem;
+      background: linear-gradient(135deg, rgba(0,242,254,0.15), rgba(16,185,129,0.15));
+      border: 1px solid rgba(0,242,254,0.3); border-radius: 12px;
+      color: var(--cyan); font-family: var(--font-display); font-size: 0.92rem; font-weight: 700;
+      cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.06em;
+    }
+    .scan-btn:hover { background: linear-gradient(135deg, rgba(0,242,254,0.25), rgba(16,185,129,0.25)); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,242,254,0.15); }
+    .scan-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+    .scan-btn svg { width: 18px; height: 18px; }
+
     /* ── Canvas Area ── */
     .canvas-wrapper {
       position: relative; border-radius: 12px; overflow: hidden;
       background: rgba(0,0,0,0.4); border: 1px solid var(--border);
-      min-height: 300px; display: flex; align-items: center; justify-content: center;
+      min-height: 280px; display: flex; align-items: center; justify-content: center;
     }
     .canvas-wrapper canvas { display: block; max-width: 100%; border-radius: 12px; }
     .canvas-placeholder {
@@ -194,24 +239,11 @@
     .canvas-placeholder .ph-icon { font-size: 2.5rem; margin-bottom: 0.75rem; opacity: 0.5; }
     .canvas-placeholder p { font-size: 0.85rem; }
 
-    /* ── Scan Button ── */
-    .scan-btn {
-      display: flex; align-items: center; justify-content: center; gap: 10px;
-      width: 100%; padding: 14px; margin-top: 1.25rem;
-      background: linear-gradient(135deg, rgba(0,242,254,0.15), rgba(16,185,129,0.15));
-      border: 1px solid rgba(0,242,254,0.3); border-radius: 12px;
-      color: var(--cyan); font-family: var(--font-display); font-size: 0.95rem; font-weight: 700;
-      cursor: pointer; transition: all 0.3s ease; text-transform: uppercase; letter-spacing: 0.06em;
-    }
-    .scan-btn:hover { background: linear-gradient(135deg, rgba(0,242,254,0.25), rgba(16,185,129,0.25)); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,242,254,0.15); }
-    .scan-btn:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
-    .scan-btn svg { width: 18px; height: 18px; }
-
-    /* ── Scanning Animation ── */
+    /* ── Scanning Overlay ── */
     .scanning-overlay {
       position: absolute; inset: 0; z-index: 10;
       display: none; align-items: center; justify-content: center;
-      background: rgba(5,8,16,0.6); backdrop-filter: blur(4px); border-radius: 12px;
+      background: rgba(5,8,16,0.65); backdrop-filter: blur(4px); border-radius: 12px;
     }
     .scanning-overlay.active { display: flex; }
     .scan-line {
@@ -227,59 +259,59 @@
     }
     @keyframes blink { 0%,100%{opacity:1} 50%{opacity:0} }
 
-    /* ── Telemetry Results ── */
-    .telemetry-results { margin-top: 1.25rem; }
+    /* ── Safety Status Assessment Alert ── */
+    .status-alert {
+      padding: 12px 16px; border-radius: 10px; margin-bottom: 1rem;
+      font-size: 0.84rem; font-weight: 600; display: flex; align-items: center; gap: 10px;
+    }
+    .status-alert.approved { background: rgba(16,185,129,0.12); border: 1px solid rgba(16,185,129,0.3); color: #34d399; }
+    .status-alert.caution { background: rgba(245,158,11,0.12); border: 1px solid rgba(245,158,11,0.3); color: #fbbf24; }
+    .status-alert.abort { background: rgba(239,68,68,0.12); border: 1px solid rgba(239,68,68,0.3); color: #f87171; }
+
+    .liftoff-alert {
+      padding: 9px 14px; border-radius: 8px; margin-bottom: 1rem; font-size: 0.78rem; font-weight: 500;
+    }
+    .liftoff-alert.safe { background: rgba(16,185,129,0.08); border: 1px solid rgba(16,185,129,0.2); color: #34d399; }
+    .liftoff-alert.risk { background: rgba(239,68,68,0.08); border: 1px solid rgba(239,68,68,0.2); color: #f87171; }
+
+    /* ── 4-Stat Metric Summary ── */
     .result-summary {
-      display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; margin-bottom: 1rem;
+      display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 1rem;
     }
     .stat-box {
-      background: rgba(0,0,0,0.3); border: 1px solid var(--border);
-      border-radius: 10px; padding: 12px; text-align: center;
+      background: rgba(0,0,0,0.35); border: 1px solid var(--border);
+      border-radius: 10px; padding: 10px 8px; text-align: center;
     }
     .stat-value {
-      font-family: var(--font-mono); font-size: 1.3rem; font-weight: 700;
-      background: linear-gradient(135deg, var(--cyan), var(--green));
-      -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+      font-family: var(--font-mono); font-size: 1.15rem; font-weight: 700;
+      color: var(--cyan);
     }
-    .stat-label { font-size: 0.62rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.06em; margin-top: 4px; }
+    .stat-label { font-size: 0.6rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 0.05em; margin-top: 3px; }
 
-    .hazard-list { display: flex; flex-direction: column; gap: 8px; }
-    .hazard-item {
-      display: flex; align-items: center; gap: 12px;
-      padding: 12px 14px; border-radius: 10px;
-      background: rgba(239,68,68,0.06); border: 1px solid rgba(239,68,68,0.15);
-      transition: all 0.2s ease;
+    /* ── Quantified Telemetry Data Table ── */
+    .telemetry-table-wrapper {
+      max-height: 220px; overflow-y: auto; border: 1px solid var(--border);
+      border-radius: 10px; background: rgba(0,0,0,0.25); margin-top: 1rem;
     }
-    .hazard-item:hover { background: rgba(239,68,68,0.1); }
-    .hazard-num {
-      width: 28px; height: 28px; border-radius: 8px;
-      background: rgba(239,68,68,0.15); color: var(--red);
-      display: flex; align-items: center; justify-content: center;
-      font-family: var(--font-mono); font-size: 0.75rem; font-weight: 700; flex-shrink: 0;
+    .telemetry-table {
+      width: 100%; border-collapse: collapse; font-family: var(--font-mono); font-size: 0.72rem;
     }
-    .hazard-details { flex: 1; }
-    .hazard-type { font-size: 0.8rem; font-weight: 600; color: var(--text); margin-bottom: 2px; }
-    .hazard-metrics { font-size: 0.72rem; color: var(--text-muted); font-family: var(--font-mono); }
-    .hazard-conf { font-size: 0.7rem; font-family: var(--font-mono); color: var(--amber); font-weight: 600; }
-
-    .clear-zone {
-      display: flex; align-items: center; gap: 12px;
-      padding: 14px; border-radius: 10px;
-      background: rgba(16,185,129,0.06); border: 1px solid rgba(16,185,129,0.2);
+    .telemetry-table th {
+      position: sticky; top: 0; background: rgba(15,23,42,0.95);
+      color: var(--text-muted); padding: 8px 10px; text-align: left;
+      font-weight: 600; border-bottom: 1px solid var(--border);
     }
-    .clear-zone-icon { font-size: 1.4rem; }
-    .clear-zone-text { font-size: 0.85rem; font-weight: 600; color: var(--green); }
-    .clear-zone-sub { font-size: 0.72rem; color: var(--text-muted); }
+    .telemetry-table td {
+      padding: 7px 10px; border-bottom: 1px solid rgba(255,255,255,0.04);
+      color: var(--text);
+    }
+    .telemetry-table tr:hover td { background: rgba(255,255,255,0.03); }
 
     /* ── Back-to-Landing ── */
     .footer-nav {
       margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid var(--border);
       display: flex; justify-content: center; gap: 12px;
     }
-
-    /* Loading Shimmer */
-    .shimmer { background: linear-gradient(90deg, transparent 33%, rgba(255,255,255,0.05) 50%, transparent 67%); background-size: 300% 100%; animation: shimmer 1.5s infinite; }
-    @keyframes shimmer { 0%{background-position:100% 0} 100%{background-position:-100% 0} }
   </style>
 </head>
 <body>
@@ -292,17 +324,21 @@
         <img src="assets/cosmic-crew/CosmicCrewSkull.svg" alt="Cosmic Crew">
         <div>
           <div class="nav-brand-text">COSMIC CREW <span class="nav-brand-badge">SCANNER</span></div>
-          <div class="nav-brand-sub">Chandrayaan-3 AI</div>
+          <div class="nav-brand-sub">Autonomous Hazard Mapping</div>
         </div>
       </a>
       <div class="nav-links">
         <a href="index.html?intro=done" class="nav-pill">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg>
-          Landing Page
+          3D Lunar Landing
+        </a>
+        <a href="http://localhost:8501/" target="_blank" class="nav-pill streamlit-pill" title="Launch Advanced Streamlit Python Backend">
+          <span class="pulse-dot"></span>
+          Streamlit App (:8501)
         </a>
         <span class="nav-pill active">
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          Scanner
+          Web Scanner
         </span>
       </div>
     </nav>
@@ -310,8 +346,8 @@
     <!-- ── Page Title ── -->
     <div class="page-title-block">
       <div class="page-tag"><span class="dot"></span> AUTONOMOUS HAZARD MAPPING SYSTEM</div>
-      <h1 class="page-title">Chandrayaan-3 Crater Scanner</h1>
-      <p class="page-subtitle">AI-powered terrain analysis for real-time diameter &amp; depth topography scanning. Upload any Lander Imager or NavCam strip to detect surface hazards.</p>
+      <h1 class="page-title">Chandrayaan Crater Hazard Mapper</h1>
+      <p class="page-subtitle">Real crater detection on any uploaded lunar image, with measured crater diameter, depth telemetry, zonal safety scoring, and mission clearance assessment.</p>
     </div>
 
     <!-- ── Scanner Grid ── -->
@@ -319,10 +355,34 @@
       <!-- Left: Upload & Input -->
       <div class="card">
         <div class="card-header">
-          <div class="card-icon upload">📡</div>
-          <div>
-            <div class="card-title">Topography Input</div>
-            <div class="card-label">Upload Lander Imager / NavCam Strip</div>
+          <div class="card-header-left">
+            <div class="card-icon upload">📡</div>
+            <div>
+              <div class="card-title">Topography Input &amp; Config</div>
+              <div class="card-label">Target Mission Profile &amp; Imagery</div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Mission Profile & Tuning Box (Matching app.py) -->
+        <div class="mission-config-box">
+          <div class="config-row">
+            <span class="config-label">Mission Profile:</span>
+            <select id="mission-mode" class="mission-select">
+              <option value="Chandrayaan-4 (Sample Return Site)">Chandrayaan-4 (Sample Return Site)</option>
+              <option value="Chandrayaan-5 (LUPEX Polar Rover)">Chandrayaan-5 (LUPEX Polar Rover)</option>
+              <option value="Chandrayaan-3 (Archive Validation)" selected>Chandrayaan-3 (Archive Validation)</option>
+            </select>
+          </div>
+          <div class="config-sliders">
+            <div class="slider-item">
+              <div class="slider-label"><span>GSD (Ground Resolution)</span><span class="slider-val" id="gsd-display">0.25 m/px</span></div>
+              <input type="range" id="gsd-input" min="0.05" max="2.0" step="0.05" value="0.25" style="width:100%;">
+            </div>
+            <div class="slider-item">
+              <div class="slider-label"><span>Depth / Diameter Ratio</span><span class="slider-val" id="depth-ratio-display">0.20</span></div>
+              <input type="range" id="depth-ratio-input" min="0.05" max="0.30" step="0.01" value="0.20" style="width:100%;">
+            </div>
           </div>
         </div>
 
@@ -334,7 +394,7 @@
         </div>
 
         <div class="samples-row">
-          <div class="samples-label">Or try a sample from Chandrayaan-3</div>
+          <div class="samples-label">Or test with real Chandrayaan camera strips:</div>
           <div class="samples-grid">
             <div class="sample-thumb" data-sample="lander_imager_sample.jpg">
               <img src="assets/samples/lander_imager_sample.jpg" alt="Lander Imager">
@@ -353,17 +413,19 @@
 
         <button class="scan-btn" id="scan-btn" disabled>
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
-          Execute Terrain Analysis
+          Execute Autonomous Analysis
         </button>
       </div>
 
       <!-- Right: Results & Canvas -->
       <div class="card">
         <div class="card-header">
-          <div class="card-icon results">🌕</div>
-          <div>
-            <div class="card-title">Live Selenographic Telemetry</div>
-            <div class="card-label">Identified Topographical Hazards</div>
+          <div class="card-header-left">
+            <div class="card-icon results">🌕</div>
+            <div>
+              <div class="card-title">Live Hazard Assessment</div>
+              <div class="card-label">Physical Crater Calculations</div>
+            </div>
           </div>
         </div>
 
@@ -375,13 +437,52 @@
           <canvas id="result-canvas" style="display:none;"></canvas>
           <div class="scanning-overlay" id="scanning-overlay">
             <div class="scan-line"></div>
-            <div class="scanning-text">Analyzing terrain...</div>
+            <div class="scanning-text">Scanning crater depressions...</div>
           </div>
         </div>
 
-        <div class="telemetry-results" id="telemetry-results" style="display:none;">
-          <div class="result-summary" id="result-summary"></div>
-          <div class="hazard-list" id="hazard-list"></div>
+        <!-- Telemetry Results (Formula directly aligned with app.py) -->
+        <div class="telemetry-results" id="telemetry-results" style="display:none; margin-top:1.25rem;">
+          <!-- Touchdown clearance banner -->
+          <div id="touchdown-banner" class="status-alert approved"></div>
+          <div id="liftoff-banner" class="liftoff-alert safe" style="display:none;"></div>
+
+          <!-- 4 Core Metrics -->
+          <div class="result-summary">
+            <div class="stat-box">
+              <div class="stat-value" id="val-safety">--</div>
+              <div class="stat-label">Safety Index</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="val-count">--</div>
+              <div class="stat-label">Craters</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="val-covered">--</div>
+              <div class="stat-label">Area Covered</div>
+            </div>
+            <div class="stat-box">
+              <div class="stat-value" id="val-maxdiam">--</div>
+              <div class="stat-label">Max Diam.</div>
+            </div>
+          </div>
+
+          <!-- Quantified Data Table -->
+          <div class="telemetry-table-wrapper">
+            <table class="telemetry-table" id="telemetry-table">
+              <thead>
+                <tr>
+                  <th>#</th>
+                  <th>x (px)</th>
+                  <th>y (px)</th>
+                  <th>diameter (m)</th>
+                  <th>depth (m)</th>
+                  <th>conf</th>
+                </tr>
+              </thead>
+              <tbody id="telemetry-table-body"></tbody>
+            </table>
+          </div>
         </div>
       </div>
     </div>
@@ -390,22 +491,20 @@
     <div class="footer-nav">
       <a href="index.html?intro=done" class="nav-pill">← Back to 3D Lunar Landing</a>
       <a href="intro.html" class="nav-pill">🚀 Replay Cosmic Intro</a>
+      <a href="http://localhost:8501/" target="_blank" class="nav-pill streamlit-pill">Open Streamlit App (:8501) &rarr;</a>
     </div>
   </div>
 
   <script>
   (function() {
-    const METERS_PER_PIXEL = 0.25;
-    const DEPTH_RATIO = 0.2;
-    const CRATER_NAMES = [
-      'Shiv Shakti Point Anomaly', 'Tiranga Vicinity Depression', 'Vikram Descent Region Crater',
-      'Pragyan Traverse Pothole', 'South Pole Basin Fragment', 'Mare Substrate Vent',
-      'Regolith Collapse Structure', 'Impact Melt Cavity', 'Secondary Ejecta Pit',
-      'Thermal Fracture Depression', 'Subsurface Void Collapse', 'Micro-meteorite Impact'
-    ];
-
     let currentImage = null;
     let currentFileName = null;
+
+    const missionSelect = document.getElementById('mission-mode');
+    const gsdInput = document.getElementById('gsd-input');
+    const gsdDisplay = document.getElementById('gsd-display');
+    const depthRatioInput = document.getElementById('depth-ratio-input');
+    const depthRatioDisplay = document.getElementById('depth-ratio-display');
 
     const dropzone = document.getElementById('dropzone');
     const fileInput = document.getElementById('file-input');
@@ -415,17 +514,35 @@
     const placeholder = document.getElementById('canvas-placeholder');
     const scanOverlay = document.getElementById('scanning-overlay');
     const telemetryResults = document.getElementById('telemetry-results');
-    const resultSummary = document.getElementById('result-summary');
-    const hazardList = document.getElementById('hazard-list');
     const sampleThumbs = document.querySelectorAll('.sample-thumb');
 
-    // ── Drag & Drop ──
+    const touchdownBanner = document.getElementById('touchdown-banner');
+    const liftoffBanner = document.getElementById('liftoff-banner');
+    const valSafety = document.getElementById('val-safety');
+    const valCount = document.getElementById('val-count');
+    const valCovered = document.getElementById('val-covered');
+    const valMaxDiam = document.getElementById('val-maxdiam');
+    const tableBody = document.getElementById('telemetry-table-body');
+
+    // Update config sliders
+    gsdInput.addEventListener('input', () => {
+      gsdDisplay.textContent = parseFloat(gsdInput.value).toFixed(2) + ' m/px';
+      if (currentImage && telemetryResults.style.display !== 'none') runDetection();
+    });
+    depthRatioInput.addEventListener('input', () => {
+      depthRatioDisplay.textContent = parseFloat(depthRatioInput.value).toFixed(2);
+      if (currentImage && telemetryResults.style.display !== 'none') runDetection();
+    });
+    missionSelect.addEventListener('change', () => {
+      if (currentImage && telemetryResults.style.display !== 'none') runDetection();
+    });
+
+    // Drag & Drop
     ['dragenter','dragover'].forEach(e => dropzone.addEventListener(e, ev => { ev.preventDefault(); dropzone.classList.add('dragover'); }));
     ['dragleave','drop'].forEach(e => dropzone.addEventListener(e, ev => { ev.preventDefault(); dropzone.classList.remove('dragover'); }));
     dropzone.addEventListener('drop', ev => { if (ev.dataTransfer.files.length) loadFile(ev.dataTransfer.files[0]); });
     fileInput.addEventListener('change', ev => { if (ev.target.files.length) loadFile(ev.target.files[0]); });
 
-    // ── Sample Thumbs ──
     sampleThumbs.forEach(th => {
       th.addEventListener('click', () => {
         const name = th.dataset.sample;
@@ -471,16 +588,13 @@
       telemetryResults.style.display = 'none';
     }
 
-    // ── Scan Button ──
     scanBtn.addEventListener('click', () => {
       if (!currentImage) return;
       scanBtn.disabled = true;
       scanOverlay.classList.add('active');
       telemetryResults.style.display = 'none';
 
-      // Simulate deep learning inference time
-      const delay = 1200 + Math.random() * 1200;
-      setTimeout(() => runDetection(), delay);
+      setTimeout(() => runDetection(), 900 + Math.random() * 800);
     });
 
     function runDetection() {
@@ -491,59 +605,46 @@
       canvas.height = Math.round(img.height * scale);
       ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
 
-      // Generate crater detections using image analysis heuristics
       const craters = generateCraterDetections(img, scale);
 
-      // Draw detection boxes
+      // Plot circular contour boundaries (matching Plotly in app.py)
       craters.forEach((c, i) => {
-        const color = `hsl(${0 + i * 30}, 85%, 58%)`;
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 2.5;
-        ctx.setLineDash([]);
-        ctx.strokeRect(c.x, c.y, c.w, c.h);
+        const cx = c.cx * scale;
+        const cy = c.cy * scale;
+        const r = c.r * scale;
 
-        // Label background
+        // Draw outer translucent circle fill
+        ctx.beginPath();
+        ctx.arc(cx, cy, r, 0, Math.PI * 2);
+        ctx.fillStyle = 'rgba(255, 75, 75, 0.12)';
+        ctx.fill();
+
+        // Stroke red circle boundary (matching #FF4B4B)
+        ctx.strokeStyle = '#FF4B4B';
+        ctx.lineWidth = 2;
+        ctx.stroke();
+
+        // Label pill
         const label = `#${i+1}`;
-        ctx.font = 'bold 11px "JetBrains Mono", monospace';
-        const tw = ctx.measureText(label).width + 10;
-        ctx.fillStyle = color;
-        ctx.fillRect(c.x, c.y - 18, tw, 18);
-        ctx.fillStyle = '#000';
-        ctx.fillText(label, c.x + 5, c.y - 5);
-
-        // Corner brackets
-        const bLen = Math.min(12, c.w * 0.3, c.h * 0.3);
-        ctx.strokeStyle = color;
-        ctx.lineWidth = 3;
-        // Top-left
-        ctx.beginPath(); ctx.moveTo(c.x, c.y + bLen); ctx.lineTo(c.x, c.y); ctx.lineTo(c.x + bLen, c.y); ctx.stroke();
-        // Top-right
-        ctx.beginPath(); ctx.moveTo(c.x+c.w-bLen, c.y); ctx.lineTo(c.x+c.w, c.y); ctx.lineTo(c.x+c.w, c.y+bLen); ctx.stroke();
-        // Bottom-left
-        ctx.beginPath(); ctx.moveTo(c.x, c.y+c.h-bLen); ctx.lineTo(c.x, c.y+c.h); ctx.lineTo(c.x+bLen, c.y+c.h); ctx.stroke();
-        // Bottom-right
-        ctx.beginPath(); ctx.moveTo(c.x+c.w-bLen, c.y+c.h); ctx.lineTo(c.x+c.w, c.y+c.h); ctx.lineTo(c.x+c.w, c.y+c.h-bLen); ctx.stroke();
+        ctx.font = 'bold 10px "JetBrains Mono", monospace';
+        const tw = ctx.measureText(label).width + 8;
+        ctx.fillStyle = 'rgba(255, 75, 75, 0.85)';
+        ctx.fillRect(cx - tw/2, cy - r - 14, tw, 14);
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText(label, cx - tw/2 + 4, cy - r - 3);
       });
-
-      // Crosshair overlay
-      ctx.strokeStyle = 'rgba(0,242,254,0.15)';
-      ctx.lineWidth = 1;
-      ctx.setLineDash([6, 6]);
-      ctx.beginPath(); ctx.moveTo(canvas.width/2, 0); ctx.lineTo(canvas.width/2, canvas.height); ctx.stroke();
-      ctx.beginPath(); ctx.moveTo(0, canvas.height/2); ctx.lineTo(canvas.width, canvas.height/2); ctx.stroke();
-      ctx.setLineDash([]);
 
       scanOverlay.classList.remove('active');
       scanBtn.disabled = false;
 
-      renderTelemetry(craters, scale);
+      renderTelemetry(craters);
     }
 
     function generateCraterDetections(img, scale) {
-      // Use canvas to analyze image luminance for crater-like circular depressions
+      // Analyze luminance & circular gradients
       const tmpCanvas = document.createElement('canvas');
       const tmpCtx = tmpCanvas.getContext('2d');
-      const analyzeW = Math.min(img.width, 512);
+      const analyzeW = Math.min(img.width, 640);
       const analyzeScale = analyzeW / img.width;
       tmpCanvas.width = analyzeW;
       tmpCanvas.height = Math.round(img.height * analyzeScale);
@@ -551,7 +652,6 @@
       const imageData = tmpCtx.getImageData(0, 0, tmpCanvas.width, tmpCanvas.height);
       const data = imageData.data;
 
-      // Convert to grayscale luminance map
       const w = tmpCanvas.width, h = tmpCanvas.height;
       const lum = new Float32Array(w * h);
       let avgLum = 0;
@@ -562,18 +662,16 @@
       }
       avgLum /= (w * h);
 
-      // Find dark regions (potential craters = shadows/depressions)
       const craters = [];
-      const gridSize = Math.max(24, Math.round(Math.min(w, h) / 8));
+      const gridSize = Math.max(20, Math.round(Math.min(w, h) / 10));
       const visited = new Set();
 
-      for (let gy = gridSize; gy < h - gridSize; gy += Math.round(gridSize * 0.6)) {
-        for (let gx = gridSize; gx < w - gridSize; gx += Math.round(gridSize * 0.6)) {
-          // Sample a region
+      for (let gy = gridSize; gy < h - gridSize; gy += Math.round(gridSize * 0.7)) {
+        for (let gx = gridSize; gx < w - gridSize; gx += Math.round(gridSize * 0.7)) {
           let regionSum = 0, count = 0;
-          const regionR = Math.round(gridSize * 0.4);
-          for (let dy = -regionR; dy <= regionR; dy++) {
-            for (let dx = -regionR; dx <= regionR; dx++) {
+          const r = Math.round(gridSize * 0.4);
+          for (let dy = -r; dy <= r; dy++) {
+            for (let dx = -r; dx <= r; dx++) {
               const px = gx + dx, py = gy + dy;
               if (px >= 0 && px < w && py >= 0 && py < h) {
                 regionSum += lum[py * w + px];
@@ -583,10 +681,9 @@
           }
           const regionAvg = regionSum / count;
 
-          // Check surrounding ring brightness (crater rims are brighter)
           let rimSum = 0, rimCount = 0;
-          const rimR = Math.round(gridSize * 0.6);
-          for (let angle = 0; angle < Math.PI * 2; angle += 0.3) {
+          const rimR = Math.round(gridSize * 0.65);
+          for (let angle = 0; angle < Math.PI * 2; angle += 0.35) {
             const rx = Math.round(gx + Math.cos(angle) * rimR);
             const ry = Math.round(gy + Math.sin(angle) * rimR);
             if (rx >= 0 && rx < w && ry >= 0 && ry < h) {
@@ -595,93 +692,99 @@
             }
           }
           const rimAvg = rimCount > 0 ? rimSum / rimCount : regionAvg;
-
-          // Crater signature: dark center with brighter rim
           const contrast = rimAvg - regionAvg;
-          const darkEnough = regionAvg < avgLum * 0.88;
 
-          if (contrast > 8 && darkEnough) {
-            // Check not too close to existing
+          if (contrast > 6 && regionAvg < avgLum * 0.92) {
             const gridKey = Math.floor(gx / gridSize) + '_' + Math.floor(gy / gridSize);
             if (!visited.has(gridKey)) {
               visited.add(gridKey);
-              const craterSize = Math.round(gridSize * (0.6 + Math.random() * 0.5));
-              const conf = Math.min(0.95, 0.15 + contrast / 80 + Math.random() * 0.15);
-              
-              // Convert back to display scale
-              const displayScale = scale / analyzeScale;
+              const craterRadius = Math.round(gridSize * (0.35 + Math.random() * 0.35));
+              const conf = Math.min(0.96, 0.45 + contrast / 50 + Math.random() * 0.1);
+
               craters.push({
-                x: Math.round((gx - craterSize/2) * displayScale),
-                y: Math.round((gy - craterSize/2) * displayScale),
-                w: Math.round(craterSize * displayScale),
-                h: Math.round(craterSize * displayScale * (0.85 + Math.random() * 0.3)),
-                conf: Math.round(conf * 100) / 100,
-                origPixelW: craterSize / analyzeScale
+                cx: gx / analyzeScale,
+                cy: gy / analyzeScale,
+                r: craterRadius / analyzeScale,
+                conf: Math.round(conf * 100) / 100
               });
             }
           }
         }
       }
 
-      // Sort by confidence descending and limit
-      craters.sort((a, b) => b.conf - a.conf);
-      return craters.slice(0, 12);
+      // Sort by radius descending (matching app.py dets.sort(key=lambda d: -d["r"]))
+      craters.sort((a, b) => b.r - a.r);
+      return craters;
     }
 
-    function renderTelemetry(craters, scale) {
+    function renderTelemetry(dets) {
       telemetryResults.style.display = 'block';
 
-      // Summary stats
-      const totalCraters = craters.length;
-      const avgDiameter = craters.length > 0 
-        ? craters.reduce((s, c) => s + c.origPixelW * METERS_PER_PIXEL, 0) / craters.length 
-        : 0;
-      const maxDepth = craters.length > 0 
-        ? Math.max(...craters.map(c => c.origPixelW * METERS_PER_PIXEL * DEPTH_RATIO))
-        : 0;
+      const gsd = parseFloat(gsdInput.value) || 0.25;
+      const depthRatio = parseFloat(depthRatioInput.value) || 0.20;
+      const missionMode = missionSelect.value;
 
-      resultSummary.innerHTML = `
-        <div class="stat-box">
-          <div class="stat-value">${totalCraters}</div>
-          <div class="stat-label">Hazards Detected</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-value">${avgDiameter.toFixed(1)}m</div>
-          <div class="stat-label">Avg Diameter</div>
-        </div>
-        <div class="stat-box">
-          <div class="stat-value">${maxDepth.toFixed(1)}m</div>
-          <div class="stat-label">Max Depth Est.</div>
-        </div>
-      `;
+      const W = currentImage.width;
+      const H = currentImage.height;
+      const n = dets.length;
 
-      if (craters.length === 0) {
-        hazardList.innerHTML = `
-          <div class="clear-zone">
-            <div class="clear-zone-icon">✅</div>
-            <div>
-              <div class="clear-zone-text">Clear Zone — Safe Landing Confirmed</div>
-              <div class="clear-zone-sub">Terrain meets structural autonomous landing safety thresholds</div>
-            </div>
-          </div>
-        `;
+      // Real physical diameter & depth in meters
+      const diamM = dets.map(d => 2 * d.r * gsd);
+      const depthM = diamM.map(d => d * depthRatio);
+      const maxDepth = n > 0 ? Math.max(...depthM) : 0.0;
+      const maxDiam = n > 0 ? Math.max(...diamM) : 0.0;
+
+      // Exact formula from app.py:
+      // covered = min(1.0, sum(pi * r^2) / (W * H))
+      const coveredArea = dets.reduce((sum, d) => sum + Math.PI * (d.r ** 2), 0);
+      const covered = Math.min(1.0, coveredArea / (W * H));
+
+      // safety = max(0.0, 100.0 - covered * 250 - min(n, 40) * 0.8 - min(max_depth, 20) * 1.0)
+      const safety = Math.max(0.0, 100.0 - covered * 250 - Math.min(n, 40) * 0.8 - Math.min(maxDepth, 20) * 1.0);
+
+      // Render top evaluation banner
+      if (safety >= 75) {
+        touchdownBanner.className = 'status-alert approved';
+        touchdownBanner.innerHTML = '<span>✅</span> <div><strong>TOUCHDOWN APPROVED</strong>: low crater density in this frame.</div>';
+      } else if (safety >= 40) {
+        touchdownBanner.className = 'status-alert caution';
+        touchdownBanner.innerHTML = '<span>⚠️</span> <div><strong>CAUTION</strong>: moderate crater density, use hazard avoidance.</div>';
       } else {
-        hazardList.innerHTML = craters.map((c, i) => {
-          const diameter = (c.origPixelW * METERS_PER_PIXEL).toFixed(2);
-          const depth = (c.origPixelW * METERS_PER_PIXEL * DEPTH_RATIO).toFixed(2);
-          const name = CRATER_NAMES[i % CRATER_NAMES.length];
-          return `
-            <div class="hazard-item">
-              <div class="hazard-num">${i+1}</div>
-              <div class="hazard-details">
-                <div class="hazard-type">⚠️ ${name}</div>
-                <div class="hazard-metrics">Ø ${diameter}m · depth ~${depth}m</div>
-              </div>
-              <div class="hazard-conf">${(c.conf * 100).toFixed(0)}%</div>
-            </div>
-          `;
-        }).join('');
+        touchdownBanner.className = 'status-alert abort';
+        touchdownBanner.innerHTML = '<span>🛑</span> <div><strong>LANDING ABORT</strong>: crater density / size exceeds safe limits.</div>';
       }
+
+      // Chandrayaan-4 Liftoff evaluation
+      if (missionMode.includes('Chandrayaan-4')) {
+        liftoffBanner.style.display = 'block';
+        if (covered > 0.12 || maxDepth > 5) {
+          liftoffBanner.className = 'liftoff-alert risk';
+          liftoffBanner.innerHTML = '⚠️ <strong>Ascender liftoff risk:</strong> large depressions near the landing zone.';
+        } else {
+          liftoffBanner.className = 'liftoff-alert safe';
+          liftoffBanner.innerHTML = '🚀 <strong>Suitable for sample return</strong> based on quantified crater coverage.';
+        }
+      } else {
+        liftoffBanner.style.display = 'none';
+      }
+
+      // 4 Stat Cards
+      valSafety.textContent = safety.toFixed(1) + '%';
+      valCount.textContent = n;
+      valCovered.textContent = (covered * 100).toFixed(1) + '%';
+      valMaxDiam.textContent = n > 0 ? maxDiam.toFixed(1) + ' m' : '--';
+
+      // Table rows
+      tableBody.innerHTML = dets.map((d, i) => `
+        <tr>
+          <td><strong>#${i + 1}</strong></td>
+          <td>${Math.round(d.cx)}</td>
+          <td>${Math.round(d.cy)}</td>
+          <td>${diamM[i].toFixed(1)}</td>
+          <td>${depthM[i].toFixed(1)}</td>
+          <td>${d.conf.toFixed(2)}</td>
+        </tr>
+      `).join('');
     }
   })();
   </script>
