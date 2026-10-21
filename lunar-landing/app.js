@@ -85,24 +85,24 @@
   controls.enablePan = false;
   controls.rotateSpeed = 0.75;
 
-  // Realistic Lighting Setup (Photographic Full Moon balance)
-  // 1. Direct Sun Key Light from front-right
-  const sunLight = new THREE.DirectionalLight(0xffffff, 2.0);
-  sunLight.position.set(5, 2.5, 7);
+  // Realistic Space Lighting Setup (Photographic lunar regolith balance)
+  // 1. Direct Solar Key Light: angle creates natural terminator highlighting crater rims
+  const sunLight = new THREE.DirectionalLight(0xffffff, 2.5);
+  sunLight.position.set(5.5, 1.4, 4.2);
   scene.add(sunLight);
 
-  // 2. Soft Earthshine Fill Light
-  const fillLight = new THREE.DirectionalLight(0xa5b8d0, 0.45);
-  fillLight.position.set(-5, -1, 3);
+  // 2. Soft Earthshine Fill Light (cool lunar blue-gray) on the shaded limb
+  const fillLight = new THREE.DirectionalLight(0x4a6585, 0.45);
+  fillLight.position.set(-5.5, -1.2, 2.8);
   scene.add(fillLight);
 
-  // 3. Ambient Light for balanced photographic shadows
-  const ambientLight = new THREE.AmbientLight(0x282c35, 0.4);
+  // 3. Deep-space Ambient Light for authentic space shadow contrast
+  const ambientLight = new THREE.AmbientLight(0x0f131a, 0.25);
   scene.add(ambientLight);
 
-  // High-Detail Moon Sphere Geometry
+  // High-Detail Moon Sphere Geometry (128x128 for seamless silhouette)
   const moonRadius = 2.45;
-  const moonGeometry = new THREE.SphereGeometry(moonRadius, 96, 96);
+  const moonGeometry = new THREE.SphereGeometry(moonRadius, 128, 128);
 
   const moonGroup = new THREE.Group();
   scene.add(moonGroup);
@@ -115,11 +115,13 @@
   });
 
   const moonMesh = new THREE.Mesh(moonGeometry, placeholderMat);
-  moonMesh.rotation.y = -0.65 * Math.PI; // Center the near-side photo with Tycho & maria straight to front
+  // Center near-side lunar maria (Tycho, Oceanus Procellarum, Mare Tranquillitatis) facing camera
+  moonMesh.rotation.y = 0.05 * Math.PI;
+  moonMesh.rotation.x = 0.02 * Math.PI;
   moonGroup.add(moonMesh);
 
-  // Subtle lunar limb glow (gentle atmospheric edge)
-  const haloGeo = new THREE.SphereGeometry(moonRadius * 1.012, 64, 64);
+  // Soft, subtle lunar rim scattering (very faint, physically realistic edge light)
+  const haloGeo = new THREE.SphereGeometry(moonRadius * 1.008, 64, 64);
   const haloMat = new THREE.ShaderMaterial({
     vertexShader: `
       varying vec3 vNormal;
@@ -131,8 +133,8 @@
     fragmentShader: `
       varying vec3 vNormal;
       void main() {
-        float intensity = pow(0.7 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.2);
-        gl_FragColor = vec4(0.85, 0.9, 1.0, intensity * 0.22);
+        float intensity = pow(0.65 - dot(vNormal, vec3(0.0, 0.0, 1.0)), 3.5);
+        gl_FragColor = vec4(0.92, 0.95, 1.0, intensity * 0.14);
       }
     `,
     blending: THREE.AdditiveBlending,
@@ -142,18 +144,49 @@
   const haloMesh = new THREE.Mesh(haloGeo, haloMat);
   moonGroup.add(haloMesh);
 
-  // Texture Loader & Apply Clean Photographic Material
+  // Texture Loader & Apply High-Resolution Photographic Material
   const textureLoader = new THREE.TextureLoader();
+
+  // Load 2K crater bump map for true topographical crater depth
+  let bumpTexture = null;
+  textureLoader.load(
+    './assets/moon_bump_2k.jpg',
+    (bumpTex) => {
+      bumpTex.wrapS = THREE.RepeatWrapping;
+      bumpTex.wrapT = THREE.ClampToEdgeWrapping;
+      bumpTexture = bumpTex;
+      if (moonMesh.material && moonMesh.material !== placeholderMat) {
+        moonMesh.material.bumpMap = bumpTexture;
+        moonMesh.material.bumpScale = 0.038;
+        moonMesh.material.needsUpdate = true;
+      }
+    },
+    undefined,
+    () => {
+      textureLoader.load('./assets/moon_bump.jpg', (fallbackBump) => {
+        fallbackBump.wrapS = THREE.RepeatWrapping;
+        fallbackBump.wrapT = THREE.ClampToEdgeWrapping;
+        bumpTexture = fallbackBump;
+        if (moonMesh.material && moonMesh.material !== placeholderMat) {
+          moonMesh.material.bumpMap = bumpTexture;
+          moonMesh.material.bumpScale = 0.03;
+          moonMesh.material.needsUpdate = true;
+        }
+      });
+    }
+  );
 
   function applyPhotorealisticTexture(texture) {
     texture.wrapS = THREE.RepeatWrapping;
     texture.wrapT = THREE.ClampToEdgeWrapping;
     texture.encoding = THREE.sRGBEncoding;
 
-    // Smooth, realistic lunar regolith: NO artificial harsh bumpy craters
+    // Authentic lunar regolith material: non-glossy, micro-crater topography
     const photoRealisticMaterial = new THREE.MeshStandardMaterial({
       map: texture,
-      roughness: 0.94,
+      bumpMap: bumpTexture || null,
+      bumpScale: 0.038,
+      roughness: 0.95,
       metalness: 0.01
     });
 
@@ -161,20 +194,27 @@
     moonMesh.material.needsUpdate = true;
   }
 
-  // Load Real Texture (Prioritize Base64 to ensure instant zero-CORS loading)
+  // Load Real Seamless Texture (Base64 instant zero-CORS first, fallback to clean 2K asset)
   if (typeof MOON_TEXTURE_B64 !== 'undefined' && MOON_TEXTURE_B64) {
     textureLoader.load(MOON_TEXTURE_B64, (tex) => {
       applyPhotorealisticTexture(tex);
     });
   } else {
     textureLoader.load(
-      './assets/real_lunar_equirectangular.jpg',
+      './assets/sss_2k_moon.jpg',
       (tex) => applyPhotorealisticTexture(tex),
       undefined,
       () => {
-        textureLoader.load('./assets/moon_map.jpg', (tex) => {
-          applyPhotorealisticTexture(tex);
-        });
+        textureLoader.load(
+          './assets/real_lunar_equirectangular.jpg',
+          (tex) => applyPhotorealisticTexture(tex),
+          undefined,
+          () => {
+            textureLoader.load('./assets/moon.jpg', (tex) => {
+              applyPhotorealisticTexture(tex);
+            });
+          }
+        );
       }
     );
   }

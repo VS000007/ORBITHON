@@ -83,16 +83,20 @@
   <!-- ========================================================================= -->
   <div class="page-container">
     <!-- Top Header / Navigation -->
-    <header class="site-header">
-      <!-- Team Cosmic Crew Brand with Authentic Skull Logo -->
-      <div class="brand-cosmic-crew" id="replay-brand-btn" title="Click to replay Cosmic Crew intro">
-        <img src="assets/cosmic-crew/CosmicCrewSkull.svg" alt="Cosmic Crew" class="brand-skull-mini">
+    <header class="site-header" id="top">
+      <!-- Project LUNA EYE Brand with Animated Optic Sensor -->
+      <div class="brand-luna-eye" id="replay-brand-btn" title="Project LUNA EYE — Click to replay Cosmic Crew intro">
+        <div class="luna-optic-icon-wrapper">
+          <div class="luna-optic-ring"></div>
+          <div class="luna-optic-scanner"></div>
+          <div class="luna-optic-core"></div>
+        </div>
         <div class="brand-text-group">
           <div class="brand-name">
-            COSMIC CREW
-            <span class="brand-badge">MISSION</span>
+            LUNA EYE
+            <span class="brand-badge-ai">AI VISION</span>
           </div>
-          <span class="brand-subtext">Lunar Crater Topography AI</span>
+          <span class="brand-subtext">Lunar Crater Topography AI • Cosmic Crew</span>
         </div>
       </div>
       
@@ -107,8 +111,7 @@
           <span>Cosmic Intro</span>
         </button>
 
-        <a href="#mission" class="nav-link" id="nav-mission">Mission</a>
-        <a href="#telemetry" class="nav-link" id="nav-telemetry">Telemetry</a>
+        <a href="#ecosystem-modules" class="nav-link" id="nav-modules">Modules & Links</a>
         
         <!-- Link to Live Streamlit Scanner (Port 8501) -->
         <a href="http://localhost:8501/" class="nav-cta-link" id="nav-detector">
@@ -122,13 +125,23 @@
     <main class="hero-section">
       <!-- Left Column: Copy & Call-to-Action -->
       <div class="hero-content">
-        <div class="mission-tag">
-          <span class="tag-glow"></span>
-          <span>CHANDRAYAAN-3 TOPOGRAPHY AI • COSMIC CREW</span>
+        <!-- LUNA EYE Animated Scanner Pill -->
+        <div class="luna-eye-badge">
+          <div class="luna-scanner-ring">
+            <span class="luna-scanner-sweep"></span>
+            <span class="luna-scanner-cross"></span>
+            <span class="luna-scanner-pupil"></span>
+          </div>
+          <div class="luna-badge-label">
+            <span class="luna-tag-project">PROJECT</span>
+            <span class="luna-tag-name">LUNA EYE</span>
+            <span class="luna-tag-divider">&bull;</span>
+            <span class="luna-tag-status">AUTONOMOUS HAZARD DETECTION</span>
+          </div>
         </div>
         
         <h1 class="hero-heading">
-          Explore the lunar<br>crater
+          Explore the lunar<br>surface with <span class="luna-gradient-accent">LUNA EYE</span>
         </h1>
         
         <p class="hero-description">
@@ -152,24 +165,13 @@
             </svg>
             Interactive Controls
           </button>
-        </div>
 
-        <!-- Telemetry Highlights Pill Row -->
-        <div class="telemetry-bar">
-          <div class="telemetry-item">
-            <span class="telemetry-label">TARGET SITE</span>
-            <span class="telemetry-val">69.37° S, 32.35° E</span>
-          </div>
-          <div class="telemetry-divider"></div>
-          <div class="telemetry-item">
-            <span class="telemetry-label">DESCENT RESOLUTION</span>
-            <span class="telemetry-val">0.25 m / px</span>
-          </div>
-          <div class="telemetry-divider"></div>
-          <div class="telemetry-item">
-            <span class="telemetry-label">TOUCHDOWN ACCURACY</span>
-            <span class="telemetry-val">&gt; 99.4%</span>
-          </div>
+          <a href="#ecosystem-modules" class="btn-more-links" id="more-links-btn" title="View all mission modules & web links">
+            <span>Explore Modules</span>
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 13l5 5 5-5M7 6l5 5 5-5"></path>
+            </svg>
+          </a>
         </div>
       </div>
 
@@ -180,6 +182,10 @@
         
         <!-- Interactive Moon Overlay Controls & HUD Tooltip -->
         <div class="moon-hud-overlay">
+          <div class="hud-optic-tag" id="hud-luna-eye-tag">
+            <span class="hud-iris-ping"></span>
+            <span>LUNA EYE // 3D Planetary Sensor</span>
+          </div>
           <div class="hud-pill" id="rotation-toggle-btn" title="Click to Pause/Resume Rotation">
             <span class="hud-status-dot active"></span>
             <span id="rotation-status-text">3D Rotation: Active</span>
@@ -189,7 +195,182 @@
           </div>
         </div>
       </div>
+
+      <!-- Hero Scroll Cue Downwards -->
+      <a href="#ecosystem-modules" class="hero-scroll-cue" title="Scroll down to view further links">
+        <span class="scroll-cue-text">SCROLL TO EXPLORE WEB LINKS & MODULES</span>
+        <svg class="scroll-cue-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <path d="M7 13l5 5 5-5M7 6l5 5 5-5"></path>
+        </svg>
+      </a>
     </main>
+
+    <!-- ========================================================================= -->
+    <!-- 3. LUNA EYE ECOSYSTEM & MISSION WEB LINKS (Scrollable Section)          -->
+    <!-- ========================================================================= -->
+    <section class="modules-section" id="ecosystem-modules">
+      <div class="section-header">
+        <div class="section-tag">
+          <span class="section-tag-dot"></span>
+          <span>LUNA EYE ECOSYSTEM & MISSION DIRECTORY</span>
+        </div>
+        <h2 class="section-title">
+          Mission Modules & <span class="gradient-text">Web Links</span>
+        </h2>
+        <p class="section-subtitle">
+          Access your primary YOLOv8 crater hazard detector, mission telemetry, and planetary data resources below.
+        </p>
+      </div>
+
+      <!-- Links Grid -->
+      <div class="modules-grid">
+        <!-- 1. Main Detection Link (Streamlit Live AI) -->
+        <a href="http://localhost:8501/" class="module-card featured-module" id="card-streamlit-detector" target="_blank" rel="noopener">
+          <div class="card-glow"></div>
+          <div class="card-top">
+            <div class="card-icon-box cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <circle cx="12" cy="12" r="3"></circle>
+                <line x1="12" y1="2" x2="12" y2="6"></line>
+                <line x1="12" y1="18" x2="12" y2="22"></line>
+                <line x1="2" y1="12" x2="6" y2="12"></line>
+                <line x1="18" y1="12" x2="22" y2="12"></line>
+              </svg>
+            </div>
+            <span class="card-badge pulse">MAIN AI DETECTOR &bull; 8501</span>
+          </div>
+          <h3 class="card-title">Live Crater Hazard Scanner</h3>
+          <p class="card-desc">
+            Primary YOLOv8-powered hazard detection suite. Computes slope risk, ground sampling distance, and real-time safe landing probability on port 8501.
+          </p>
+          <div class="card-footer">
+            <span class="card-action-text">Launch Live Scanner</span>
+            <svg class="card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+        </a>
+
+        <!-- 3. Shiv Shakti Point Telemetry & Descent Specs -->
+        <a href="#moon-container" class="module-card" id="card-telemetry">
+          <div class="card-glow"></div>
+          <div class="card-top">
+            <div class="card-icon-box amber">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="2"></circle>
+                <path d="M16.24 7.76a6 6 0 0 1 0 8.49m-8.48-.01a6 6 0 0 1 0-8.49m11.31-2.82a10 10 0 0 1 0 14.14m-14.14 0a10 10 0 0 1 0-14.14"></path>
+              </svg>
+            </div>
+            <span class="card-badge">MISSION TELEMETRY</span>
+          </div>
+          <h3 class="card-title">Target Site & Orbital Data</h3>
+          <p class="card-desc">
+            Shiv Shakti Point landing site coordinates (69.37° S, 32.35° E), 0.25 m/px descent resolution calibration, and terrain relief mapping.
+          </p>
+          <div class="card-footer">
+            <span class="card-action-text">Inspect 3D Site</span>
+            <svg class="card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+        </a>
+
+        <!-- 4. ISRO ISSDC Lunar Science Repository -->
+        <a href="https://www.issdc.gov.in/" target="_blank" rel="noopener" class="module-card" id="card-issdc">
+          <div class="card-glow"></div>
+          <div class="card-top">
+            <div class="card-icon-box green">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"></path>
+                <path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"></path>
+              </svg>
+            </div>
+            <span class="card-badge">EXTERNAL PORTAL</span>
+          </div>
+          <h3 class="card-title">ISRO Science Data Centre</h3>
+          <p class="card-desc">
+            Official Indian Space Science Data Centre archive containing raw TMC-2, OHRC, and polar elevation datasets from Chandrayaan orbiters.
+          </p>
+          <div class="card-footer">
+            <span class="card-action-text">Visit ISSDC Archive</span>
+            <svg class="card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+        </a>
+
+        <!-- 5. Luna Eye Vision Architecture -->
+        <a href="https://github.com/ultralytics/ultralytics" target="_blank" rel="noopener" class="module-card" id="card-model-specs">
+          <div class="card-glow"></div>
+          <div class="card-top">
+            <div class="card-icon-box purple">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polyline points="16 18 22 12 16 6"></polyline>
+                <polyline points="8 6 2 12 8 18"></polyline>
+              </svg>
+            </div>
+            <span class="card-badge">AI ARCHITECTURE</span>
+          </div>
+          <h3 class="card-title">Luna Eye Neural Weights</h3>
+          <p class="card-desc">
+            YOLOv8 deep learning architecture trained on high-resolution lunar crater datasets, crater rim morphology, and shadow orientation.
+          </p>
+          <div class="card-footer">
+            <span class="card-action-text">Explore AI Specs</span>
+            <svg class="card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+        </a>
+
+        <!-- ========================================================================= -->
+        <!-- 6. USER CUSTOM LINK SLOT: EASILY EDIT OR DUPLICATE THIS CARD TO ADD LINKS -->
+        <!-- ========================================================================= -->
+        <a href="https://github.com/" class="module-card add-custom-card" id="card-add-custom" target="_blank" rel="noopener">
+          <div class="card-glow"></div>
+          <div class="card-top">
+            <div class="card-icon-box custom">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <line x1="12" y1="5" x2="12" y2="19"></line>
+                <line x1="5" y1="12" x2="19" y2="12"></line>
+              </svg>
+            </div>
+            <span class="card-badge new-badge">ADD YOUR LINK</span>
+          </div>
+          <h3 class="card-title">+ Add Further Web Link</h3>
+          <p class="card-desc">
+            Template slot ready for your custom website, documentation, research paper, or mission page. Simply edit <code>href</code> in <code>index.html</code>.
+          </p>
+          <div class="card-footer">
+            <span class="card-action-text">Add Link Slot</span>
+            <svg class="card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+        </a>
+      </div>
+    </section>
+
+    <!-- Site Footer -->
+    <footer class="site-footer">
+      <div class="footer-left">
+        <span class="footer-brand">LUNA EYE</span>
+        <span class="footer-sep">&bull;</span>
+        <span class="footer-copy">Chandrayaan Lunar Surface AI &bull; Cosmic Crew</span>
+      </div>
+      <div class="footer-right">
+        <a href="#cosmic-intro-screen" class="footer-link" id="footer-replay-btn">Replay Intro</a>
+        <a href="#ecosystem-modules" class="footer-link">Modules & Links</a>
+        <a href="http://localhost:8501/" class="footer-link">Live AI (8501)</a>
+        <a href="#top" class="footer-link back-to-top" id="back-to-top">Back to Top &uarr;</a>
+      </div>
+    </footer>
   </div>
 
   <!-- Three.js CDN -->
@@ -260,10 +441,21 @@
         }, 650);
       }
 
+      const footerReplay = document.getElementById('footer-replay-btn');
+
       if (skipBtn) skipBtn.addEventListener('click', (e) => { e.stopPropagation(); dismissIntro(); });
       if (enterBtn) enterBtn.addEventListener('click', (e) => { e.stopPropagation(); dismissIntro(); });
       if (replayBtn) replayBtn.addEventListener('click', (e) => { e.preventDefault(); startIntro(); });
       if (brandBtn) brandBtn.addEventListener('click', (e) => { e.preventDefault(); startIntro(); });
+      if (footerReplay) footerReplay.addEventListener('click', (e) => { e.preventDefault(); startIntro(); });
+
+      const backToTopBtn = document.getElementById('back-to-top');
+      if (backToTopBtn) {
+        backToTopBtn.addEventListener('click', (e) => {
+          e.preventDefault();
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+      }
 
       // Click anywhere on the intro screen to skip
       introEl.addEventListener('click', (e) => {
