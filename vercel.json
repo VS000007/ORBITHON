@@ -1,9 +1,40 @@
 {
-  "cleanUrls": true,
   "rewrites": [
     {
       "source": "/",
       "destination": "/lunar-landing/index.html"
+    },
+    {
+      "source": "/scanner",
+      "destination": "/lunar-landing/scanner.html"
+    },
+    {
+      "source": "/scanner.html",
+      "destination": "/lunar-landing/scanner.html"
+    },
+    {
+      "source": "/intro",
+      "destination": "/lunar-landing/intro.html"
+    },
+    {
+      "source": "/intro.html",
+      "destination": "/lunar-landing/intro.html"
+    },
+    {
+      "source": "/style.css",
+      "destination": "/lunar-landing/style.css"
+    },
+    {
+      "source": "/cosmic-intro.css",
+      "destination": "/lunar-landing/cosmic-intro.css"
+    },
+    {
+      "source": "/app.js",
+      "destination": "/lunar-landing/app.js"
+    },
+    {
+      "source": "/assets/:path*",
+      "destination": "/lunar-landing/assets/:path*"
     }
   ]
 }
