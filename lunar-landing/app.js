@@ -331,3 +331,62 @@
   window.addEventListener('resize', onWindowResize);
 
 })();
+
+
+// --- 3. LIVE STREAMLIT CLOUD CRATER SCANNER CONTROLLER ---
+(function initCraterScannerController() {
+  const iframe = document.getElementById('crater-scanner-iframe');
+  const loader = document.getElementById('scanner-loader');
+  const refreshBtn = document.getElementById('refresh-scanner-btn');
+  const expandBtn = document.getElementById('expand-scanner-btn');
+  const expandText = document.getElementById('expand-btn-text');
+  const container = document.getElementById('scanner-container');
+
+  if (!iframe) return;
+
+  // Hide loader once iframe has finished initial load
+  iframe.addEventListener('load', () => {
+    if (loader) {
+      setTimeout(() => {
+        loader.classList.add('hidden');
+      }, 500);
+    }
+  });
+
+  // Safety fallback: if stream takes longer or fires earlier, ensure loader hides after 5s
+  setTimeout(() => {
+    if (loader) loader.classList.add('hidden');
+  }, 5000);
+
+  // Refresh / Reload iframe
+  if (refreshBtn) {
+    refreshBtn.addEventListener('click', () => {
+      if (loader) loader.classList.remove('hidden');
+      const currentSrc = iframe.src;
+      iframe.src = '';
+      setTimeout(() => {
+        iframe.src = currentSrc;
+      }, 150);
+    });
+  }
+
+  // Expand / Fullscreen Toggle
+  if (expandBtn && container) {
+    expandBtn.addEventListener('click', () => {
+      const isExpanded = container.classList.toggle('is-expanded');
+      if (expandText) {
+        expandText.textContent = isExpanded ? 'Exit Fullscreen' : 'Expand';
+      }
+      document.body.style.overflow = isExpanded ? 'hidden' : '';
+    });
+
+    // Close expanded view on ESC key
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && container.classList.contains('is-expanded')) {
+        container.classList.remove('is-expanded');
+        if (expandText) expandText.textContent = 'Expand';
+        document.body.style.overflow = '';
+      }
+    });
+  }
+})();

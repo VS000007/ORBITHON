@@ -111,12 +111,13 @@
           <span>Cosmic Intro</span>
         </button>
 
+        <a href="#live-scanner" class="nav-link" id="nav-scanner-jump">AI Console</a>
         <a href="#ecosystem-modules" class="nav-link" id="nav-modules">Modules & Links</a>
         
-        <!-- Link to Live Streamlit Scanner (Port 8501) -->
-        <a href="http://localhost:8501/" class="nav-cta-link" id="nav-detector">
+        <!-- Link to Live Hosted Streamlit Cloud Scanner -->
+        <a href="https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/" target="_blank" rel="noopener" class="nav-cta-link" id="nav-detector" title="Open Crater Scanner on Streamlit Cloud">
           <span class="pulse-indicator"></span>
-          Crater Scanner (8501)
+          Crater Scanner (Cloud Live ↗)
         </a>
       </nav>
     </header>
@@ -149,9 +150,9 @@
         </p>
         
         <div class="hero-actions">
-          <!-- Connects directly to Streamlit AI Crater Hazard Mapper on localhost:8501 -->
-          <a href="http://localhost:8501/" class="btn-get-started" id="get-started-btn">
-            Get Started
+          <!-- Connects directly to Live AI Crater Hazard Mapper -->
+          <a href="#live-scanner" class="btn-get-started" id="get-started-btn">
+            Launch Crater Scanner
             <svg class="btn-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
               <line x1="5" y1="12" x2="19" y2="12"></line>
               <polyline points="12 5 19 12 12 19"></polyline>
@@ -197,13 +198,119 @@
       </div>
 
       <!-- Hero Scroll Cue Downwards -->
-      <a href="#ecosystem-modules" class="hero-scroll-cue" title="Scroll down to view further links">
-        <span class="scroll-cue-text">SCROLL TO EXPLORE WEB LINKS & MODULES</span>
+      <a href="#live-scanner" class="hero-scroll-cue" title="Scroll down to Live AI Crater Scanner Console">
+        <span class="scroll-cue-text">SCROLL TO INTERACTIVE AI SCANNER CONSOLE</span>
         <svg class="scroll-cue-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
           <path d="M7 13l5 5 5-5M7 6l5 5 5-5"></path>
         </svg>
       </a>
     </main>
+
+    <!-- ========================================================================= -->
+    <!-- 2.5 LIVE AUTONOMOUS CRATER SCANNER & HAZARD MAPPING CONSOLE               -->
+    <!-- ========================================================================= -->
+    <section class="scanner-section" id="live-scanner">
+      <div class="scanner-header-wrapper">
+        <div class="section-tag">
+          <span class="section-tag-dot"></span>
+          <span>DEPLOYED CLOUD MODEL // STREAMLIT APPS</span>
+        </div>
+        <h2 class="section-title">
+          Live Autonomous <span class="gradient-text">Crater Scanner</span>
+        </h2>
+        <p class="section-subtitle">
+          Real-time YOLOv8 crater topography hazard mapping hosted live on Streamlit Cloud. Upload lunar surface photography or explore benchmark detection below.
+        </p>
+
+        <div class="scanner-metrics-strip">
+          <div class="metric-pill">
+            <span class="metric-status-live"></span>
+            <span>Cloud Status: <strong>Operational</strong></span>
+          </div>
+          <div class="metric-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="m4.93 4.93 4.24 4.24"/><path d="m14.83 9.17 4.24-4.24"/><path d="m14.83 14.83 4.24 4.24"/><path d="m9.17 14.83-4.24 4.24"/></svg>
+            <span>Model: <strong>YOLOv8n + Classical CV</strong></span>
+          </div>
+          <div class="metric-pill">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"/></svg>
+            <span>Target: <strong>Chandrayaan-4 / South Pole</strong></span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Interactive Iframe Bezel Container -->
+      <div class="scanner-console-container" id="scanner-container">
+        <div class="scanner-console-bar">
+          <div class="console-left">
+            <div class="console-traffic-lights">
+              <span class="light red"></span>
+              <span class="light yellow"></span>
+              <span class="light green"></span>
+            </div>
+            <div class="console-url-chip">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#00f2fe" stroke-width="2.5"><rect width="18" height="11" x="3" y="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>
+              <span class="url-text">crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app</span>
+            </div>
+          </div>
+
+          <div class="console-actions">
+            <button class="console-btn" id="refresh-scanner-btn" title="Reload Scanner Application">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21.5 2v6h-6M21.34 15.57a10 10 0 1 1-.57-8.38l5.67-5.67"/>
+              </svg>
+              <span>Reload</span>
+            </button>
+            
+            <button class="console-btn" id="expand-scanner-btn" title="Toggle Expanded / Fullscreen View">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M15 3h6v6M9 21H3v-6M21 3l-7 7M3 21l7-7"/>
+              </svg>
+              <span id="expand-btn-text">Expand</span>
+            </button>
+
+            <a href="https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/" target="_blank" rel="noopener" class="console-btn primary" title="Open Streamlit Cloud App in New Tab">
+              <span>Open in Tab</span>
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6M15 3h6v6M10 14L21 3"/>
+              </svg>
+            </a>
+          </div>
+        </div>
+
+        <!-- Live Streamlit Cloud Iframe with Loading Overlay -->
+        <div class="scanner-iframe-wrapper">
+          <div class="scanner-loader" id="scanner-loader">
+            <div class="scanner-spinner"></div>
+            <div class="scanner-loader-text">Connecting to Live Cloud AI Model...</div>
+            <div class="scanner-loader-sub">crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app</div>
+          </div>
+          <iframe 
+            id="crater-scanner-iframe"
+            src="https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/?embed=true"
+            title="Chandrayaan Autonomous Crater Hazard Mapping Streamlit App"
+            loading="lazy"
+            allow="camera; clipboard-write; clipboard-read"
+            sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"
+          ></iframe>
+        </div>
+
+        <!-- Quick Telemetry Bar -->
+        <div class="scanner-telemetry-bar">
+          <div class="telemetry-item">
+            <span class="telemetry-label">ISRO LANDING ZONE:</span>
+            <span class="telemetry-val">Shiv Shakti Point (69.373° S, 32.319° E)</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-label">GROUND RESOLUTION:</span>
+            <span class="telemetry-val">0.25 m/pixel (TMC-2 / OHRC)</span>
+          </div>
+          <div class="telemetry-item">
+            <span class="telemetry-label">ENGINE INFERENCE:</span>
+            <span class="telemetry-val">Real-time GPU / ONNX Runtime</span>
+          </div>
+        </div>
+      </div>
+    </section>
 
     <!-- ========================================================================= -->
     <!-- 3. LUNA EYE ECOSYSTEM & MISSION WEB LINKS (Scrollable Section)          -->
@@ -224,6 +331,32 @@
 
       <!-- Links Grid -->
       <div class="modules-grid">
+        <!-- 0. Live Hosted Streamlit AI Crater Scanner -->
+        <a href="https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/" target="_blank" rel="noopener" class="module-card featured-scanner-card" id="card-streamlit-live">
+          <div class="card-glow"></div>
+          <div class="card-top">
+            <div class="card-icon-box cyan">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="12" cy="12" r="10"></circle>
+                <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+                <path d="M2 12h20"></path>
+              </svg>
+            </div>
+            <span class="card-badge pulse">CLOUD LIVE ⚡</span>
+          </div>
+          <h3 class="card-title">Live Crater Scanner (Cloud)</h3>
+          <p class="card-desc">
+            Hosted on Streamlit Cloud. Run autonomous crater detection on any uploaded lunar image with measured crater diameter, depth/diameter ratios, hazard severity scoring, and classical CV comparisons.
+          </p>
+          <div class="card-footer">
+            <span class="card-action-text">Launch Hosted App (Streamlit)</span>
+            <svg class="card-arrow" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </div>
+        </a>
+
         <!-- 1. ISRO ISSDC Lunar Science Repository -->
         <a href="https://www.issdc.gov.in/" target="_blank" rel="noopener" class="module-card" id="card-issdc">
           <div class="card-glow"></div>
@@ -312,8 +445,9 @@
       </div>
       <div class="footer-right">
         <a href="#cosmic-intro-screen" class="footer-link" id="footer-replay-btn">Replay Intro</a>
+        <a href="#live-scanner" class="footer-link">Embedded Console</a>
         <a href="#ecosystem-modules" class="footer-link">Modules & Links</a>
-        <a href="http://localhost:8501/" class="footer-link">Live AI (8501)</a>
+        <a href="https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/" target="_blank" rel="noopener" class="footer-link" style="color:#00f2fe;">Live Cloud AI ↗</a>
         <a href="#top" class="footer-link back-to-top" id="back-to-top">Back to Top &uarr;</a>
       </div>
     </footer>

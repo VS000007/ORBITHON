@@ -18,8 +18,9 @@ ORBITHON combines state-of-the-art AI crater topography detection with a cinemat
    - Photorealistic 3D rotating Moon built with Three.js and real LRO (Lunar Reconnaissance Orbiter) surface textures.
    - Interactive orbit rotation controls, crater coordinates, and descent resolution HUD.
    - Seamless transition into the live detection suite.
-3. **Stage 3 — ISRO Crater AI Detector (`app.py`)**:
-   - Streamlit computer vision application utilizing YOLOv8n deep learning to identify and map lunar craters in real-time.
+3. **Stage 3 — ISRO Crater AI Detector (`app.py` & Live Cloud)**:
+   - **Live Hosted Application**: [https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/](https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/)
+   - Integrated directly into the landing page via an interactive high-performance embedded AI console with full-screen expansion.
 
 ---
 
@@ -32,7 +33,9 @@ python -m http.server 3000 --directory lunar-landing
 ```
 Visit: `http://localhost:3000/`
 
-### 2. Run the Main Crater Detection Backend
+### 2. Access or Run the Crater Detection Suite
+- **Live Cloud Deployment**: [https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/](https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/)
+- **Local Development**:
 ```bash
 pip install streamlit ultralytics pillow
 streamlit run app.py
