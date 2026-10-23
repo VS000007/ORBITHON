@@ -5,6 +5,10 @@
       "destination": "/lunar-landing/index.html"
     },
     {
+      "source": "/index.html",
+      "destination": "/lunar-landing/index.html"
+    },
+    {
       "source": "/scanner",
       "destination": "/lunar-landing/scanner.html"
     },
