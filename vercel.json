@@ -9,14 +9,6 @@
       "destination": "/lunar-landing/index.html"
     },
     {
-      "source": "/scanner",
-      "destination": "/lunar-landing/scanner.html"
-    },
-    {
-      "source": "/scanner.html",
-      "destination": "/lunar-landing/scanner.html"
-    },
-    {
       "source": "/intro",
       "destination": "/lunar-landing/intro.html"
     },
@@ -39,6 +31,23 @@
     {
       "source": "/assets/:path*",
       "destination": "/lunar-landing/assets/:path*"
+    }
+  ],
+  "redirects": [
+    {
+      "source": "/scanner",
+      "destination": "https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/",
+      "permanent": false
+    },
+    {
+      "source": "/scanner.html",
+      "destination": "https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/",
+      "permanent": false
+    },
+    {
+      "source": "/lunar-landing/scanner.html",
+      "destination": "https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/",
+      "permanent": false
     }
   ]
 }
