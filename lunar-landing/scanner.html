@@ -229,14 +229,15 @@
             <div class="scanner-spinner"></div>
             <div class="scanner-loader-text">Connecting to Live Cloud AI Model...</div>
             <div class="scanner-loader-sub">crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app</div>
+            <a href="https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/" target="_blank" rel="noopener" style="margin-top:16px; color:#00f2fe; font-size:0.82rem; text-decoration:none; border:1px solid rgba(0,242,254,0.3); padding:6px 14px; border-radius:6px; pointer-events:auto;">
+              Taking long to wake up? Click to Open in Tab &rarr;
+            </a>
           </div>
           <iframe 
             id="crater-scanner-iframe"
             src="https://crater-scanner-8tvxwfgihwbljakvpxwb9r.streamlit.app/?embed=true"
             title="Chandrayaan Autonomous Crater Hazard Mapping Streamlit App"
-            loading="lazy"
-            allow="camera; clipboard-write; clipboard-read"
-            sandbox="allow-forms allow-modals allow-popups allow-popups-to-escape-sandbox allow-same-origin allow-scripts allow-downloads"
+            allow="camera; microphone; clipboard-read; clipboard-write; fullscreen"
           ></iframe>
         </div>
 
@@ -316,11 +317,11 @@
       if (!iframe) return;
 
       iframe.addEventListener('load', () => {
-        if (loader) setTimeout(() => loader.classList.add('hidden'), 500);
+        if (loader) setTimeout(() => loader.classList.add('hidden'), 800);
       });
       setTimeout(() => {
         if (loader) loader.classList.add('hidden');
-      }, 5000);
+      }, 15000);
 
       if (refreshBtn) {
         refreshBtn.addEventListener('click', () => {
